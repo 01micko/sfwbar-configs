@@ -1,0 +1,28 @@
+module("pulsectl")
+
+define SoundState = Val(Pulse("sink-volume"))
+define muted = "audio-volume-muted"
+define low = "audio-volume-low"
+define medium = "audio-volume-medium"
+define high = "audio-volume-high"
+#define SoundIcon =  If(Pulse("sink-mute")="1",muted,If(SoundState>100, high, If(SoundState>50, medium, If(SoundState>5, low, muted))))
+define SoundIcon = If(Pulse("sink-mute")="1",muted,
+    Lookup(SoundState,
+      100, high,
+      50, medium,
+      5, low,
+      muted))
+
+layout {
+  image {
+    value = SoundIcon
+    trigger = "pulse"
+    tooltip = If(Pulse("sink-mute")="1", " (Sound muted) ","Volume: " + Str(Pulse("sink-volume") * 2 / 3,0) + "%")
+    action[1] = "vol.sh"
+    action[2] = PulseCmd "sink-mute toggle"
+    action[3] = "pavucontrol"
+    action[4] = PulseCmd "sink-volume +2"
+    action[5] = PulseCmd "sink-volume -2"
+    css = "* { min-height: 24px; min-width: 24px; padding: 4px; }"
+  }
+}
