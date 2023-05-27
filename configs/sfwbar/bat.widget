@@ -1,5 +1,5 @@
 define batpercent = (0 + If($BatState = "Full", 100, BatLeft / BatTotal * 100))
-define charging = Val($BatState = "Full") | Val($BatState = "Charging")
+define charging = If($BatState = "Full",1,0) | If($BatState = "Charging",1,0)
 define ChHigh = "rgb(80,120,255)"
 define DisHigh = "rgb(255,160,125)"
 define ChLow = "rgb(204,80,255)"
@@ -29,7 +29,7 @@ layout {
   image {
     value = svg
     interval = 1000
-    tooltip = Str(batpercent,0)+"% Charged"
+    tooltip = Str(batpercent,0)+"% "+ $Batstate
     action = "powerapplet.sh s"
     action[0] = PipeRead "powerapplet.sh"
     css = "* { min-height: 24px; min-width: 24px; padding: 4px; }"
