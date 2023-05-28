@@ -51,14 +51,14 @@ be adapted to any system.
 | ---------------- | --------------------------- | -----------
 |barlauncher.widget| button and image            | launches menu and apps
 |bat.widget        | image - inline svg          | battery monitor
-|clock.widget      | clock (pupy specific)       | digital clock
+|clock.widget      | clock (puppy specific)      | digital clock
 |cpu.widget        | chart                       | CPU usage graph
-|firewall.widget   | image (pupy specific)       | state of firewall
+|firewall.widget   | image (puppy specific)      | state of firewall
 |idle.widget       | image - sfwbar idleinhibit  | state of swayidle
-|logout.widget     | image (pupy specific)       | raises logout GUI
+|logout.widget     | image (puppy specific)      | raises logout GUI
 |network.widget    | image                       | network state and monitor
 |pulse.widget      | image                       | pulse audio volume control
-|pupusage.widget   | image (pupy specific)       | usage stats
+|pupusage.widget   | image (puppy specific)      | usage stats
 |temp.widget       | image                       | CPU temperature in celcius
 
 ### Main config
@@ -76,12 +76,12 @@ These are a few helper scripts for sfwbar.
 
 A script that supplies the menu for the `firewall.widget` and the
 `network.widget`. You can change the calls to your distro specific
-firwall manager and network tools respectively.
+firewall manager and network tools respectively.
 
 #### powerapplet.sh
 
-`bat.widget` depends on this script. There is a *pupyism* in there
-callimg `gtkdialog-splash`. You can re-work this to use `xmessage`
+`bat.widget` depends on this script. There is a *puppyism* in there
+calling `gtkdialog-splash`. You can re-work this to use `xmessage`
 or even `xterm -e`.
 
 #### vol.sh
