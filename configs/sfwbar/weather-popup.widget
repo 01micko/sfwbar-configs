@@ -1,0 +1,35 @@
+# Parse met.no weather forecast, adjust lat/lon to suit your location
+scanner {
+  Exec("wget -O - \"https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=-27.9479&lon=153.3982\"") {
+    WthrTemp= Json(".properties.timeseries.1.data.instant.details.air_temperature")
+    WthrCond= Json(".properties.timeseries.1.data.next_12_hours.summary.symbol_code")
+  }
+}
+
+PopUp "WeatherPopup" {
+  style = "frame"
+  label {
+    css = "* { font: 0.5cm Sans; font-weight: 700; -GtkWidget-align: 0.5; padding-left: 1mm; padding-right: 1mm; }"
+    value = "Labrador QLD" # adjust to your location
+  }
+  label {
+    interval = 50000
+    css = "* { font: 0.5cm Sans; font-weight: 700; -GtkWidget-align: 0.5; padding-left: 1mm; padding-right: 1mm; }"
+    value = Str(WthrTemp.val,1)+"°C"
+  }
+  image {
+    interval = 50000
+    css = "* { -GtkWidget-hexpand: true; -GtkWidget-vexpand: true; min-height: 40px; min-width: 40px; padding: 4px; }"
+    value = 'icons/weather/'+$WthrCond+'.svg'
+  }
+}
+
+layout {
+  image {
+    interval = 50000
+    css = "* { min-height: 24px; min-width: 24px; padding: 4px; }"
+    value = 'icons/weather/'+$WthrCond+'.svg'
+    action[1] = PopUp "WeatherPopup"
+    tooltip = "Press for more"
+  }
+}
