@@ -1,0 +1,89 @@
+module("pulsectl")
+
+define SoundState = Val(Pulse("sink-volume"))
+define SoundMute = Val(Pulse("sink-mute"))
+define muted = "audio-volume-muted"
+define low = "audio-volume-low"
+define medium = "audio-volume-medium"
+define high = "audio-volume-high"
+define SoundIcon = If(Str(SoundMute,0)="1",muted,
+    Lookup(SoundState,
+      100, high,
+      50, medium,
+      5, low,
+      muted))
+
+PopUp "PulsePopup" {
+  style = "frame"
+  css = "* { -GtkWidget-direction: bottom; }"
+  label {
+    value = "Volume: " + Str(SoundState * 2 / 3,0) + "%"
+  }
+  grid "PopupScale" {
+    style = "pulse_progress"
+    scale {        
+      interval = 500
+      value = SoundState / 150
+      css = "* {-GtkWidget-direction: right; padding: 5px; }" 
+    }
+  }
+  grid "PopupButtons" {
+    style = "pulse_buttons"
+    button {
+      value = "gtk-add"
+      action[1] = PulseCmd "sink-volume +5"
+      tooltip = "increase volume"
+      css = "* { min-height: 30px; min-width: 30px; margin: 2px; }"
+    }
+    button {
+      value = "gtk-remove"
+      action[1] = PulseCmd "sink-volume -5"
+      tooltip = "decrease volume"
+      css = "* { min-height: 30px; min-width: 30px; margin: 2px; }"
+    }
+    button {
+      value = muted
+      action[1] = PulseCmd "sink-mute toggle"
+      tooltip = "toggle mute"
+      css = "* { min-height: 30px; min-width: 30px; margin: 2px; }"
+    }
+  }
+}
+
+layout {
+  image {
+    value = SoundIcon
+    trigger = "pulse"
+    tooltip = If(Str(SoundMute,0)="1", " (Sound muted) ","Volume: " + Str(SoundState * 2 / 3,0) + "%")
+    action[1] = PopUp "PulsePopup"
+    action[2] = PulseCmd "sink-mute toggle"
+    action[3] = "pavucontrol"
+    action[4] = PulseCmd "sink-volume +1"
+    action[5] = PulseCmd "sink-volume -1"
+    css = "* { min-height: 24px; min-width: 24px; padding: 4px; }"
+  }
+}
+
+#CSS
+
+window#PulsePopup {
+  -GtkWidget-halign: center;
+}
+
+#pulse_progress {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+#pulse_progress progress {
+  min-height: 6px;
+}
+
+#pulse_progress trough {
+  min-height: 6px;
+}
+
+#pulse_buttons {
+  -GtkWidget-halign: center;
+  -GtkWidget-direction: right;
+}
