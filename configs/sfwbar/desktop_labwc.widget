@@ -1,0 +1,31 @@
+# special desktop switcher for labwc
+# this widget requires the daemon "ctrllrd"
+# it must be started with elevated privileges
+# or else you could use "ydotool" and usjust config accordingly
+# it also requires an xml snippet added to ~/.config/labwc/rc.xml
+layout {
+grid "btns" {
+  style = "move"
+  button {
+    value = "go-previous"
+    action = "killall -USR1 ctrllrd"
+    css = "* { min-height: 24px; min-width: 32px; }"
+    }
+  button {
+    value = "go-next"
+    action = "killall -USR2 ctrllrd"
+    css = "* { min-height: 24px; min-width: 32px; }"
+    }
+  }
+  tooltip = "Move to Desktop"
+}
+
+#CSS
+grid#move {
+  background-color: mix(@theme_bg_color, white, 0.1);
+  border-radius: 6px;
+  border-image: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: @borders;
+}
