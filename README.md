@@ -4,6 +4,10 @@ My custom configuration files for `sfwbar`
 
 The git repository for `sfwbar` can be found [here].
 
+NOTE: these configs are older configs and likely won't work in latest `sfwbar`
+
+That said, some of them still do however I'll leave that as an execise for the reader.
+
 ## Overview
 
 Many of these configs demonstrate the usage of `sfwbar` config language.
