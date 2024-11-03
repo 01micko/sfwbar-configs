@@ -1,8 +1,8 @@
 # World Clock
 
 These config files enable a sidebar displaying world times on simple 
-`svg` clock dials on screen on the right by default. That can changed by
-editing the `-GtkWidget-direction:` propertin the the `#CSS` section of
+`svg` clock dials on screen on the right by default. That can be changed by
+editing the `-GtkWidget-direction:` property in the the `#CSS` section of
 the config to `left`.
 
 ### Screen shots
