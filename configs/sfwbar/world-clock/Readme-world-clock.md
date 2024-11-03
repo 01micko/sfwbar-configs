@@ -21,7 +21,7 @@ sfwbar -f world-clock.config
 ```
 
 You can also put the configs in a subdir, for example `clocks/`. This keeps your
-maing confdir tidy.
+main confdir tidy.
 
 ```
 sfwbar -f clocks/world-clock.config
