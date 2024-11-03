@@ -55,8 +55,8 @@ circular image you like so long as the angle variables (clock hands) in
 the `svg =` definition are preserved. These are the engine of each clock
 and every different timezone needs a unique variable.
 
-You can even use a `png` image stuffed into the `svg =` definition maiking
-sure again to preserver the clock hand code. See the `analog-Japan.widget`
+You can even use a `png` image stuffed into the `svg =` definition making
+sure again to preserve the clock hand code. See the `analog-Japan.widget`
 for an example.
 
 ### Bugs
