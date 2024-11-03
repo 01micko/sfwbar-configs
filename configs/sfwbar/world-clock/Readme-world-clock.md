@@ -7,7 +7,7 @@ the config to `left`.
 
 ### Screen shots
 
-![Assorted clock dials](./wc-assorted.png) [Uniform clock dials](./wc-uniform.png)
+![Assorted clock dials](./wc-assorted.png) ![Uniform clock dials](./wc-uniform.png)
 
 ### Usage
 
