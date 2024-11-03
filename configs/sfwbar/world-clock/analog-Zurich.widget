@@ -1,7 +1,7 @@
-Set zhr = Time("%H","GMT-1")
-Set zmn = Time("%M","GMT-1")
-Set zsc = Time("%S","GMT-1")
-Set zmeri = Time("%P","GMT-1")
+Set zhr = Time("%H","CET-1CEST,M3.5.0,M10.5.0/3")
+Set zmn = Time("%M","CET-1CEST,M3.5.0,M10.5.0/3")
+Set zsc = Time("%S","CET-1CEST,M3.5.0,M10.5.0/3")
+Set zmeri = Time("%P","CET-1CEST,M3.5.0,M10.5.0/3")
 
 Set ZSec = Str(Val($zsc) * 6)
 Set ZMin = Str(Val($zmn) * 6)

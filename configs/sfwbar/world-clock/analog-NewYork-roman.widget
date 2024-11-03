@@ -1,7 +1,7 @@
-Set nhr = Time("%H","GMT+4")
-Set nmn = Time("%M","GMT+4")
-Set nsc = Time("%S","GMT+4")
-Set nmeri = Time("%P","GMT+4")
+Set nhr = Time("%H","EST5EDT,M3.2.0,M11.1.0")
+Set nmn = Time("%M","EST5EDT,M3.2.0,M11.1.0")
+Set nsc = Time("%S","EST5EDT,M3.2.0,M11.1.0")
+Set nmeri = Time("%P","EST5EDT,M3.2.0,M11.1.0")
 
 Set NSec = Str(Val($sc) * 6)
 Set NMin = Str(Val($mn) * 6)

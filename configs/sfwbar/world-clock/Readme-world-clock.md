@@ -31,16 +31,24 @@ sfwbar -f clocks/world-clock.config
 ### Changing things
 
 Clock styles and timezone are set in each separate widget. At the top the
-time zone is set. At the moment only `GMT` style zones are accepted.
+time zone is set. For example:
 
 ```
-Time("%H", "GMT+4") # New York - but it's really GMT-4, it's a glibc thing
+Time("%H", "EST5EDT,M3.2.0,M11.1.0") # New York
 
 ```
 
-Because of this you'll have to adjust for daylight saving manually in
-the top variables. That's probably easier than changing the time on your
-microwave oven!
+The easiest way to find the required timezone is to query the timezone file,
+like so:
+
+```
+$> CITY=New_York
+$> find /usr/share/zoneinfo/ -type f -name "$CITY" |xargs tail -n1
+$> EST5EDT,M3.2.0,M11.1.0
+
+```
+
+That's probably easier than changing the time on your microwave oven!
 
 You can change the clock faces in the `svg` component of the config to any
 circular image you like so long as the angle variables (clock hands) in

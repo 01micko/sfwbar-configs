@@ -1,7 +1,7 @@
-Set jhr = Time("%H","GMT-9")
-Set jmn = Time("%M","GMT-9")
-Set jsc = Time("%S","GMT-9")
-Set jmeri = Time("%P","GMT-9")
+Set jhr = Time("%H","JST-9")
+Set jmn = Time("%M","JST-9")
+Set jsc = Time("%S","JST-9")
+Set jmeri = Time("%P","JST-9")
 
 Set JSec = Str(Val($jsc) * 6)
 Set JMin = Str(Val($jmn) * 6)

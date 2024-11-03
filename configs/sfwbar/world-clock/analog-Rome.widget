@@ -1,7 +1,7 @@
-Set rhr = Time("%H","GMT-1")
-Set rmn = Time("%M","GMT-1")
-Set rsc = Time("%S","GMT-1")
-Set rmeri = Time("%P","GMT-1")
+Set rhr = Time("%H","CET-1CEST,M3.5.0,M10.5.0/3")
+Set rmn = Time("%M","CET-1CEST,M3.5.0,M10.5.0/3")
+Set rsc = Time("%S","CET-1CEST,M3.5.0,M10.5.0/3")
+Set rmeri = Time("%P","CET-1CEST,M3.5.0,M10.5.0/3")
 
 Set RSec = Str(Val($rsc) * 6)
 Set RMin = Str(Val($rmn) * 6)

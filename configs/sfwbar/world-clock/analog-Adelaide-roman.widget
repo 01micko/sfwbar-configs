@@ -1,7 +1,7 @@
-Set aahr = Time("%H","GMT-10:30")
-Set aamn = Time("%M","GMT-10:30")
-Set aasc = Time("%S","GMT-10:30")
-Set aameri = Time("%P","GMT-10:30")
+Set aahr = Time("%H","ACST-9:30ACDT,M10.1.0,M4.1.0/3")
+Set aamn = Time("%M","ACST-9:30ACDT,M10.1.0,M4.1.0/3")
+Set aasc = Time("%S","ACST-9:30ACDT,M10.1.0,M4.1.0/3")
+Set aameri = Time("%P","ACST-9:30ACDT,M10.1.0,M4.1.0/3")
 
 Set AASec = Str(Val($aasc) * 6)
 Set AAMin = Str(Val($aamn) * 6)

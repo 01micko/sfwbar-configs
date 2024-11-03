@@ -1,7 +1,7 @@
-Set lhr = Time("%H","GMT")
-Set lmn = Time("%M","GMT")
-Set lsc = Time("%S","GMT")
-Set lmeri = Time("%P","GMT")
+Set lhr = Time("%H","GMT0BST,M3.5.0/1,M10.5.0")
+Set lmn = Time("%M","GMT0BST,M3.5.0/1,M10.5.0")
+Set lsc = Time("%S","GMT0BST,M3.5.0/1,M10.5.0")
+Set lmeri = Time("%P","GMT0BST,M3.5.0/1,M10.5.0")
 
 Set LSec = Str(Val($lsc) * 6)
 Set LMin = Str(Val($lmn) * 6)

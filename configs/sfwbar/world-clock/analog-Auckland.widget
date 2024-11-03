@@ -1,7 +1,7 @@
-Set ahr = Time("%H","GMT-13")
-Set amn = Time("%M","GMT-13")
-Set asc = Time("%S","GMT-13")
-Set ameri = Time("%P","GMT-10:30")
+Set ahr = Time("%H","NZST-12NZDT,M9.5.0,M4.1.0/3")
+Set amn = Time("%M","NZST-12NZDT,M9.5.0,M4.1.0/3")
+Set asc = Time("%S","NZST-12NZDT,M9.5.0,M4.1.0/3")
+Set ameri = Time("%P","NZST-12NZDT,M9.5.0,M4.1.0/3")
 
 Set ASec = Str(Val($asc) * 6)
 Set AMin = Str(Val($amn) * 6)

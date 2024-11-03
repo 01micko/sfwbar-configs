@@ -1,7 +1,7 @@
-Set thr = Time("%H","GMT-9")
-Set tmn = Time("%M","GMT-9")
-Set tsc = Time("%S","GMT-9")
-Set tmeri = Time("%P","GMT-9")
+Set thr = Time("%H","JST-9")
+Set tmn = Time("%M","JST-9")
+Set tsc = Time("%S","JST-9")
+Set tmeri = Time("%P","JST-9")
 
 Set TSec = Str(Val($tsc) * 6)
 Set TMin = Str(Val($tmn) * 6)
