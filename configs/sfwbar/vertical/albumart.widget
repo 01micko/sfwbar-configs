@@ -1,0 +1,23 @@
+MpdClient("") {
+  MpdFile = RegEx("file: (.*)")
+  MpdDir = RegEx("music_directory: (.*)")
+}
+
+TriggerAction "mpd", Function If($MpdInitComplete!="done", "MpdCoverInit", "MpdNotifyCover")
+
+Function("MpdCoverInit") {
+  MpdCmd "config"
+  Eval "MpdInitComplete", "done"
+}
+
+Function("MpdNotifyCover") {
+  Exec "albumart.sh"
+}
+
+layout {
+  image {
+    style = "cover"
+    value = $MpdDir + "/" + Extract($MpdFile, "(.*)/") + "/cover.jpg"
+    trigger = "mpd"
+  }
+}

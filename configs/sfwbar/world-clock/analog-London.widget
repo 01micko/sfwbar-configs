@@ -1,0 +1,49 @@
+Set lhr = Time("%H","GMT")
+Set lmn = Time("%M","GMT")
+Set lsc = Time("%S","GMT")
+Set lmeri = Time("%P","GMT")
+
+Set LSec = Str(Val($lsc) * 6)
+Set LMin = Str(Val($lmn) * 6)
+Set LHour = Str((Val($lhr)%12)*30+Val($lmn)/2)
+
+define svg = '<?xml  version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 192 192">
+  <defs>
+    <radialGradient id="RG1" cx="50%" cy="50%" fx="50%" fy="50%" r="50%">
+      <stop style="stop-color:rgb(200,200,200);stop-opacity:0.75;" offset="0%"/>
+      <stop style="stop-color:rgb(100,100,100);stop-opacity:1;" offset="100%"/>
+    </radialGradient>
+  </defs>
+  <circle style="stroke:@theme_fg_color; stroke-width:3; fill: url(#RG1); fill-opacity:0.75;" cx="96" cy="96" r="91" />
+  <path style="stroke:@theme_fg_color; stroke-width:3; fill: none;" d="m 94 10 0 7 m 4 -7 0 7 m -88 79 7 0 m 79 86 0 -7 m 86 -79 -7 0" />
+  <g transform="rotate('+ $LHour +' 96 96)">
+    <path style="stroke:@theme_fg_color; stroke-width:6;" d="m 96 102 0 -70"/>
+  </g>
+  <g transform="rotate('+ $LMin +' 96 96)">
+    <path style="stroke:@theme_fg_color; stroke-width:4;" d="m 96 108 0 -82"/>
+  </g>
+  <g transform="rotate('+ $LSec +' 96 96)">
+    <path style="stroke: #ff0000; stroke-width:2;" d="m 96 110 0 -96"/>
+  </g>
+</svg>'
+
+
+layout {
+  image {
+    style = "analog"
+    interval = 1000
+    value = svg
+    tooltip = "London\n" + $lhr + ':' + $lmn + ' ' + $lmeri
+  }
+}
+
+#CSS
+image#analog {
+  -GtkWidget-align: 1;
+  -GtkWidget-hexpand: true;
+  -GtkWidget-vexpand: true;
+  min-height: 120px;
+  min-width: 120px;
+  padding-left: 28px;
+}

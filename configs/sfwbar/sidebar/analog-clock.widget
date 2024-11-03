@@ -1,0 +1,35 @@
+Set hr = Time("%H")
+Set mn = Time("%M")
+Set sc = Time("%S")
+Set meri = Time("%P")
+
+Set Sec = Str(Val($sc) * 6)
+Set Min = Str(Val($mn) * 6)
+Set Hour = Str((Val($hr)%12)*30+Val($mn)/2)
+
+include("analog-jp.source")
+#include("analog-clock.source")
+#include("analog-plain.source")
+#include("zigbert-clock.source")
+#include("zigbert-clock-roman.source")
+#include("analog-swiss-rail.source")
+
+layout {
+  image {
+    style = "analogmain"
+    interval = 1000
+    value = svg
+    tooltip = "Local\n" + $hr + ':' + $mn + ' ' + $meri
+  }
+}
+
+#CSS
+image#analogmain {
+  -GtkWidget-align: 1;
+  -GtkWidget-hexpand: true;
+  -GtkWidget-vexpand: true;
+  min-height: 160px;
+  min-width: 160px;
+  padding-left: 48px;
+  padding-right: 10px;
+}

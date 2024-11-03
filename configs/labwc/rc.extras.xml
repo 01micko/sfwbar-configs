@@ -1,0 +1,24 @@
+<!-- This is for the sfwbar/desktop_labwc.widget
+Add this <keybind></keybind> snippet to the the <keyboard></keyboard>
+section of ~/.config/labwc/rc.xml
+Also the <desktops></desktops> must be configured in rc.xml -->
+
+    <keybind key="C-l">
+      <action name="GoToDesktop" to="left" wrap="yes" />
+    </keybind>
+
+    <keybind key="C-r">
+      <action name="GoToDesktop" to="right" wrap="yes" />
+    </keybind>
+
+<!-- This is for the sfwbar/clipboard.widget
+Add this snippet to the the <mouse></mouse>
+section of ~/.config/labwc/rc.xml -->    
+    
+      <mousebind button="Right" action="Press">
+        <action name="Execute" command="bash -c 'wofi --show=drun -p Program'"/>
+      </mousebind>
+      <mousebind button="Middle" action="Press">
+        <action name="Execute" command="bash -c 'killall wofi'"/>
+      </mousebind>
+

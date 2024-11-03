@@ -1,0 +1,300 @@
+Set XCalTmpl = "grid 'cal_grid' {
+  label 'XCal_label$CAL_NUM$' {
+    value = '$CAL_DAY$'
+    style = '$CAL_STYLE$'
+    loc($CAL_COL$, $CAL_ROW$)
+  }
+}"
+
+Set XCalPrevMonth = If(XCalMonth=1, 12, XCalMonth-1)
+Set XCalPrevYear = If(XCalMonth=1, XCalYear-1, XCalYear)
+Set XCalYearIsLeap = XCalYear%4=0 & (XCalYear%100!=0 | XCalYear%400=0)
+Set XCalPrevYearIsLeap = XCalPrevYear%4=0 &
+  (XCalPrevYear%100!=0 | XCalPrevYear%400=0)
+Set XCalNumDays = Map(Str(XCalMonth),
+    "12", "31",
+    "11", "30",
+    "10", "31",
+    "9", "30",
+    "8", "31",
+    "7", "31",
+    "6", "30",
+    "5", "31",
+    "4", "30",
+    "3", "31",
+    "2", If(XCalYearIsLeap, "29", "28"),
+    "1", "31",
+    "0")
+
+Set XCalPrevNumDays = Map(Str(XCalPrevMonth),
+    "12", "31",
+    "11", "30",
+    "10", "31",
+    "9", "30",
+    "8", "31",
+    "7", "31",
+    "6", "30",
+    "5", "31",
+    "4", "30",
+    "3", "31",
+    "2", If(XCalPrevYearIsLeap, "29", "28"),
+    "1", "31",
+    "0")
+
+Set XCalMOff = (Val(Map(Str(XCalMonth),
+    "12", "5",
+    "11", "3",
+    "10", "0",
+    "9", "5",
+    "8", "2",
+    "7", "6",
+    "6", "4",
+    "5", "1",
+    "4", "6",
+    "3", "3",
+    "2", "3",
+    "1", "0",
+    "0"))+If(XCalMonth>2 & XCalYearIsLeap,1,0))%7
+
+Set XCalDate = Map(Str(XCalMonth),
+        "1", "January",
+        "2", "February",
+        "3", "March",
+        "4", "April",
+        "5", "May",
+        "6", "June",
+        "7", "July",
+        "8", "August",
+        "9", "September",
+        "10", "October",
+        "11", "November",
+        "12", "December",
+        "Huh?") + " " + Str(XCalYear)
+
+Function("XCalPopUp") {
+  Eval "XCalYear", time("%Y")
+  Eval "XCalMonth", time("%m")
+  Function "XCalInit"
+  PopUp "XCal"
+}
+
+Function("XCalInitLoop") {
+  Eval "TmpCalDay", XCalCounter-XCalDOW+If(XCalCounter-XCalDOW<0,
+          XCalPrevNumDays+1,
+          If(XCalCounter-XCalDOW+1>XCalNumDays,1-XCalNumDays,1))
+  Config ReplaceAll($XCalTmpl,
+      "$CAL_NUM$", $XCalCounter,
+      "$CAL_COL$", Str(XCalCounter%7,0),
+      "$CAL_ROW$", Str((XCalCounter-XCalCounter%7)/7,0),
+      "$CAL_DAY$", $TmpCalDay,
+      '$CAL_STYLE$',If(XCalCounter-XCalDOW<0 |
+          XCalCounter-XCalDOW+1>XCalNumDays,
+          'cal_cell_other',
+          If($TmpCalDay=Time("%d"),
+            'cal_cell_focused_current',
+            'cal_cell_current'
+          )
+        )
+      )
+  Eval "XCalCounter", XCalCounter+1
+  Function If(XCalCounter<42, "XCalInitLoop", "Noop")
+}
+
+Function("XCalInit") {
+  Config "label 'cal_date' { value = $XCalDate }"
+  Eval "XCalDOW", (XCalMoff+
+      5*((XCalYear-1)%4)+4*((XCalYear-1)%100)+6*((XCalYear-1)%400))%7
+  Eval "XCalCounter", 0
+  Function "XCalInitLoop"
+}
+
+Function("XCalNextMonth") {
+  Eval "XCalYear", XCalYear + If(XCalMonth=12,1,0)
+  Eval "XCalMonth", If(XCalMonth=12,1,XCalMonth+1)
+  Function "XCalInit"
+}
+
+Function("XCalPrevMonth") {
+  Eval "XCalYear", XCalYear - If(XCalMonth=1,1,0)
+  Eval "XCalMonth", If(XCalMonth=1,12,XCalMonth-1)
+  Function "XCalInit"
+}
+
+Function("XCalPrevYear") {
+  Eval "XCalYear", XCalYear-1
+  Function "XCalInit"
+}
+
+Function("XCalNextYear") {
+  Eval "XCalYear", XCalYear+1
+  Function "XCalInit"
+}
+
+layout {
+  style = "module"
+  grid "XCal" {
+  style = "cal_popup_grid"
+  label 'cal_clock' {
+    value = time("%H:%M:%S")
+    style = 'cal_clock'
+    interval = 1000
+    action[0] = Function "XCalPopUp"
+    loc(1,1)
+  }
+  grid {
+    loc(1,2)
+    css = "* { -GtkWidget-direction: right; }"
+    image {
+      value = 'go-first'
+      style = 'cal_arrow'
+      action = Function "XCalPrevYear"
+      tooltip = "Previous year"
+    }
+    image {
+      value = 'go-previous'
+      style = 'cal_arrow'
+      action = Function "XCalPrevMonth"
+      tooltip = "Previous month"
+    }
+    label 'cal_date' {
+      style = "cal_date"
+    }
+    image {
+      value = 'go-next'
+      style = 'cal_arrow'
+      action = Function "XCalNextMonth"
+      tooltip = "Next month"
+    }
+    image {
+      value = 'go-last'
+      style = 'cal_arrow'
+      action = Function "XCalNextYear"
+      tooltip = "Next year"
+    }
+  }
+
+  grid "cal_days" {
+    loc(1,3)
+    style = 'days_grid'
+    label {
+      value = "Mo"
+      style = "cal_cell_current"
+    }
+    label {
+      value = "Tu"
+      style = "cal_cell_current"
+    }
+    label {
+      value = "We"
+      style = "cal_cell_current"
+    }
+    label {
+      value = "Th"
+      style = "cal_cell_current"
+    }
+    label {
+      value = "Fr"
+      style = "cal_cell_current"
+    }
+    label {
+      value = "Sa"
+      style = "cal_cell_current"
+    }
+    label {
+      value = "Su"
+      style = "cal_cell_current"
+    }
+  }
+
+  grid "cal_grid" {
+    loc(1,4)
+    style = 'cal_grid'
+  }
+}
+
+#CSS
+#frame {
+  margin: 2px;
+}
+
+label#date {
+	padding: 0 3px 0 4px;
+	margin-bottom: 2px;
+	-GtkWidget-align: 0.5;
+	-GtkWidget-hexpand: true;
+	-GtkWidget-vexpand: true;
+	font: 0.3cm Sans;
+	font-weight: 400;
+}
+
+label#time {
+    font: 0.5cm Sans;
+    font-weight: 400;
+    -GtkWidget-align: 0.5;
+    -GtkWidget-hexpand: true;
+    -GtkWidget-vexpand: true;
+	padding: 0 4px 0 3px;
+	margin: 0;
+}
+
+grid#cal_popup_grid {
+  border-radius: 10px;
+  margin: 10px;
+  border: 1px solid @borders;
+  padding: 10px;
+  background: alpha(@theme_selected_bg_color, 0.1);
+  -GtkWidget-hexpand: true;
+  -GtkWidget-vexpand: false;
+  -GtkWidget-direction: bottom;
+}
+
+grid#cal_grid {
+  padding-top: 10px;
+  -GtkWidget-column-homogenious: true;
+  -GtkWidget-row-homogenious: true;
+}
+
+image#cal_arrow {
+  min-height: 16px;
+  min-width: 16px;
+   -ScaleImage-color: @theme_selected_bg_color;
+}
+
+label#cal_clock {
+  -GtkWidget-hexpand: true;
+  -GtkWidget-halign: start;
+  font-size: 32px;
+  font-weight: 500;
+  padding-bottom: 10px;
+}
+
+label#cal_date {
+  -GtkWidget-ellipsize: false;
+  -GtkWidget-hexpand: true;
+  font-weight: 400;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+label#cal_cell_current,
+label#cal_cell_other {
+  font-weight: 400;
+  min-width: 30px;
+  min-height: 30px;
+}
+
+label#cal_cell_other {
+  font-weight: 300;
+  color: alpha(grey, 0.6);
+}
+
+label#cal_cell_focused_current {
+  font-weight: 900;
+  border: 1px solid @theme_selected_bg_color;
+  background-color: alpha(@theme_selected_bg_color, 0.333);
+}
+
+label#cal_cell_focused_other {
+  font-weight: 900;
+  border: 1px solid @theme_selected_bg_color;
+}

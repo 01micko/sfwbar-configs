@@ -1,0 +1,9 @@
+include("cpu-temp.source")
+
+layout {
+  label {
+    style = "temp"
+    interval = 1000
+    value = Str(XCpuTemp/1000,0)+"°C"
+  }
+}

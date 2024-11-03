@@ -1,0 +1,18 @@
+define Usage = Disk("/","%used")
+define Tot = Disk("/","total")
+define Avail = Disk("/","avail")
+#define Low = "rgb(255,27,0)"
+#define Medium = "rgb(255,183,0)"
+#define High = "rgb(60,199,140)"
+#define Col = If(Usage <= 50,High,If(Usage >= 80,Low,Medium))
+define DiskUsage = (Usage / 100)
+
+layout {
+  scale {
+    interval = 20000
+    style = "memory"
+    value = DiskUsage
+    tooltip = "<tt>"+Str(Usage,0)+"% disk usage\nTotal: "+Str(Tot/1048576,0)+" MB\nAvailable: "+Str(Avail/1048576,0)+" MB</tt>"
+    action = Exec $Term + " -e top -o %MEM"
+  }
+}

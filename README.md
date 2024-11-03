@@ -37,29 +37,16 @@ There are many more. Consult the [sfwbar manpage] for more information.
 
 ## Configs
 
-Note that some of these are specific to [Puppy Linux] but could easily
-be adapted to any system. 
+These configs and widgets are intended to run on most distros in most compositors
+except for some that are specific to `labwc`
 
-### Grouped configs
+#### world clock
 
-- `includes.widget`
-- `launcher.widget` and `launcher.css` (separate launcher)
+See the [world clock](configs/sfwbar/world-clock/Readme-world-clock.md)
 
-### Individual widgets
+#### side bar
 
-|Widget            | Widget type                 | Description
-| ---------------- | --------------------------- | -----------
-|barlauncher.widget| button and image            | launches menu and apps
-|bat.widget        | image - inline svg          | battery monitor
-|clock.widget      | clock (puppy specific)      | digital clock
-|cpu.widget        | chart                       | CPU usage graph
-|firewall.widget   | image (puppy specific)      | state of firewall
-|idle.widget       | image - sfwbar idleinhibit  | state of swayidle
-|logout.widget     | image (puppy specific)      | raises logout GUI
-|network.widget    | image                       | network state and monitor
-|pulse.widget      | image                       | pulse audio volume control
-|pupusage.widget   | image (puppy specific)      | usage stats
-|temp.widget       | image                       | CPU temperature in celcius
+See the [side bar](configs/sfwbar/sidebar/Readme-sidebar.md)
 
 ### Main config
 
@@ -68,30 +55,5 @@ be adapted to any system.
 The single main config is responsible for launching the main bar and the
 launcher.
 
-## Scripts
-
-These are a few helper scripts for sfwbar.
-
-#### buildmenu.sh
-
-A script that supplies the menu for the `firewall.widget` and the
-`network.widget`. You can change the calls to your distro specific
-firewall manager and network tools respectively.
-
-#### powerapplet.sh
-
-`bat.widget` depends on this script. There is a *puppyism* in there
-calling `gtkdialog-splash`. You can re-work this to use `xmessage`
-or even `xterm -e`.
-
-#### vol.sh
-
-This is entirely uneccesary for the `pulse.widget` but is nice to
-have for a bit more graphical feedback or if you don't have a scroll-wheel
-on your mouse. It depends on [gtkdialog]. Please use the latest stable
-version as it has `gtk-layer-shell` support when compiled with GTK3.
-
 [here]: https://github.com/LBCrion/sfwbar
 [sfwbar manpage]: https://github.com/LBCrion/sfwbar/blob/main/doc/sfwbar.rst
-[Puppy Linux]: https://github.com/puppylinux-woof-CE/woof-CE
-[gtkdialog]: https://github.com/puppylinux-woof-CE/gtkdialog

@@ -1,0 +1,88 @@
+include("mpd.source")
+
+layout {
+  style = If(MpdState.count=0,"hidden","frame")
+  label {
+    css = "* { font-weight: 600;  }"
+    style = "mpd"
+    interval = 100
+    value = $MpdTitle
+    tooltip = "Currently playing: " + $MpdTitle
+      #loc(1,1,4,1)
+  }
+  label {
+    style = "mpd"
+    interval = 100
+    value = $MpdArtist+" - "+ $MpdAlbum
+    tooltip = $MpdArtist+" - "+ $MpdAlbum
+    #loc(1,2,4,1)
+  }
+  grid {
+    css = "* { -GtkWidget-halign: center; padding-top: 10px; padding-left: 36px; }"
+    image {
+      style = If(MpdRepeat,"mpd_icon_red","mpd_icon")
+      value = "media-loop.svg"
+      action = MpdCmd "repeat " + If(MpdRepeat,"0","1")
+      trigger = "mpd"
+      loc(1,1,1,1)
+    }
+    image {
+      style = If(MpdRandom,"mpd_icon_red","mpd_icon")
+      value = "media-shuffle.svg"
+      action = MpdCmd "random " + If(MpdRandom,"0","1")
+      trigger = "mpd"
+      loc(2,1,1,1)
+    }
+    image {
+      style = "mpd_icon"
+      value = "media-rewind.svg"
+      loc(3,1,1,1)
+      action = MpdCmd "previous"
+    }
+    image {
+      style = If($MpdState="play","mpd_icon_red","mpd_icon")
+      value = "media-play.svg"
+      loc(4,1,1,1)
+      action = MpdCmd "play"
+    }
+    image {
+      style = If($MpdState="pause","mpd_icon_red","mpd_icon")
+      value = "media-pause.svg"
+      loc(5,1,1,1)
+      action = MpdCmd "pause"
+      trigger = "mpd"
+    }
+    image {
+      style = If($MpdState="stop","mpd_icon_red","mpd_icon")
+      value = "media-stop.svg"
+      loc(6,1,1,1)
+      action = MpdCmd "stop"
+    }
+    image {
+      style="mpd_icon"
+      value = "media-fforward.svg"
+      loc(7,1,1,1)
+      action = MpdCmd "next"
+    }
+  }
+}
+
+#CSS
+
+image#mpd_icon {
+  -ScaleImage-color: @theme_selected_bg_color;
+  -GtkWidget-halign: start;
+  padding: 2px;
+}
+
+image#mpd_icon_red {
+  -ScaleImage-color: @theme_fg_color;
+}
+
+
+label#mpd {
+  margin-left: 48px;
+  -GtkWidget-max-width: 210;
+  -GtkWidget-align: 0.5;
+  -GtkWidget-halign: fill;
+}

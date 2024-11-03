@@ -1,0 +1,148 @@
+Set Term="foot"
+Set Browser="firefox"
+Set Fileman="thunar"
+Set Editor="geany"
+Set Calc="galculator"
+Set Imageedit="gimp"
+Set WordProcessor="libreoffice"
+Set Colpick="color"
+
+Function("LaunchTerm") {
+  Exec $Term
+  PopUp "LaunchPopup"
+}
+
+Function("LaunchBrowser") {
+  Exec $Browser
+  PopUp "LaunchPopup"
+}
+
+Function("LaunchFileman") {
+  Exec $Fileman
+  PopUp "LaunchPopup"
+}
+
+Function("LaunchEditor") {
+  Exec $Editor
+  PopUp "LaunchPopup"
+}
+
+Function("LaunchCalc") {
+  Exec $Calc
+  PopUp "LaunchPopup"
+}
+
+Function("LaunchImageedit") {
+  Exec $Imageedit
+  PopUp "LaunchPopup"
+}
+
+Function("LaunchLibre") {
+  Exec $WordProcessor + " --writer"
+  PopUp "LaunchPopup"
+}
+
+Function("LaunchColpick") {
+  Exec "wly_colpick"
+  PopUp "LaunchPopup"
+}
+
+PopUp "LaunchPopup" {
+  AutoClose = true
+  grid {
+    style = "vlaunch"
+    label {
+      value = "Launcher"
+      style = "launch_separator"
+      loc(1,1,4,1)
+    }
+    image {
+      value = $Term
+      action = Function "LaunchTerm"
+      tooltip = $Term
+      css = "* { min-height: 24px; min-width: 24px; padding: 6px; }"
+      loc(1,2,1,1)
+    }
+    image {
+      value = $Browser
+      action = Function "LaunchBrowser"
+      tooltip = $Browser
+      css = "* { min-height: 24px; min-width: 24px; padding: 6px; }"
+      loc(2,2,1,1)
+    }
+    image {
+      value = $Fileman
+      action = Function  "LaunchFileman"
+      tooltip = $Fileman
+      css = "* { min-height: 24px; min-width: 24px; padding: 6px; }"
+      loc(3,2,1,1)
+    }
+    image {
+      value = $WordProcessor + "-writer"
+      action = Function  "LaunchLibre"
+      tooltip = "Libreoffice Writer"
+      css = "* { min-height: 24px; min-width: 24px; padding: 6px; }"
+      loc(4,2,1,1)
+    }
+    image {
+      value = $Editor
+      action = Function "LaunchEditor"
+      tooltip = $Editor
+      css = "* { min-height: 24px; min-width: 24px; padding: 6px; }"
+      loc(1,3,1,1)
+    }
+    image {
+      value = $Calc
+      action = Function "LaunchCalc"
+      tooltip = $Calc
+      css = "* { min-height: 24px; min-width: 24px; padding: 6px; }"
+      loc(2,3,1,1)
+    }
+    image {
+      value = $Imageedit
+      action = Function "LaunchImageedit"
+      tooltip = $Imageedit
+      css = "* { min-height: 24px; min-width: 24px; padding: 6px; }"
+      loc(3,3,1,1)
+    }
+    image {
+      value = "select-" + $Colpick
+      action = Function "LaunchColpick"
+      tooltip = $Colpick + " selection"
+      css = "* { min-height: 24px; min-width: 24px; padding: 6px; }"
+      loc(4,3,1,1)
+    }
+    action = Close
+  }
+}
+
+layout {
+  #image {
+  label {
+    #value = "launcher"
+    #action = PopUp "LaunchPopup"
+    #tooltip = "Launcher"
+    #css = "* { min-height: 32px; min-width: 32px; padding: 8px; }"
+  }
+}
+
+#CSS
+
+window#LaunchPopup {
+  background-color: @theme_bg_color;
+  background-color: alpha(@theme_bg_color, 0.75);
+  border: 1px solid white;
+  border-radius: 6px;
+}
+
+label#launch_separator {
+  padding: 3px;
+  font-size: 12px;
+  border-bottom: dashed 1px @border;
+  min-height: 20px;
+}
+
+grid#vlaunch {
+  -GtkWidget-hexpand: true;
+  -GtkWidget-direction: bottom;
+}

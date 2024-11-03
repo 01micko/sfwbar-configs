@@ -1,0 +1,36 @@
+layout {
+  grid {
+   style = "lab"
+   label {
+      style = "lab"
+      value = "labwc"
+    }
+    image {
+      style = "lab"
+      value = "labwc"
+    }
+  }
+}
+
+#CSS
+
+label#lab {
+  font: 24px Sans;
+  font-weight: 500;
+  color: @theme_fg_color;
+  -GtkWidget-align: 0.5;
+}
+
+image#lab {
+  font-size: 20px;
+  -GtkWidget-valign: center;
+  min-width: 40px;
+  min-height: 40px;
+  padding-bottom: 20px;
+}
+
+grid#lab {
+  padding-left: 100px;
+  -GtkWidget-direction: bottom;
+  -GtkWidget-halign: center;
+}

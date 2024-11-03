@@ -1,0 +1,161 @@
+include("mpd.source")
+
+PopUp "XMpdWindow" {
+  autoclose = false
+  trigger = "mpd"
+  style = If($MpdState="","hidden","XMpdPopup")
+  css = "* { -GtkWidget-direction: bottom; }"
+  include("albumart.widget")
+  label {
+    value = "<b>"+$MpdTitle+"</b>";
+    trigger = "mpd"
+    tooltip = "Track: "+$MpdTitle
+    style = "mpd_title"
+  }
+  label {
+    value = $MpdAlbum;
+    trigger = "mpd"
+    tooltip = "Album: "+$MpdAlbum
+    style = "mpd_album"
+  }
+  label {
+    value = $MpdArtist;
+    trigger = "mpd"
+    style = "mpd_artist"
+  }
+  scale {
+    value = (MpdElapsed+If($MpdState="play",MpdElapsed.age/1000000,0))/MpdDuration
+    style = "mpd_progress"
+    action = MpdCmd "seekcur " + Str(gtkevent("x") * MpdDuration)
+    trigger = "mpd"
+  }
+  grid "XMpdPlayer" {
+    css = "* { -GtkWidget-direction: right; -GtkWidget-halign: center; -GtkWidget-hexpand: true; }"
+    image {
+      css = "* { min-height: 18px; min-width: 18px; padding: 2px; }"
+      value = "media/media-loop.svg"
+      action = MpdCmd "repeat " + If(MpdRepeat,"0","1")
+      style = If(MpdRepeat,"mpd_icon_red","mpd_icon")
+      trigger = "mpd"
+    }
+    image {
+      value = "media/media-shuffle.svg"
+      action = MpdCmd "random " + If(MpdRandom,"0","1")
+      style = If(MpdRandom,"mpd_icon_red","mpd_icon")
+      trigger = "mpd"
+    }
+    image {
+      value = "media/media-rewind.svg"
+      action = MpdCmd "previous"
+      style = "mpd_icon"
+    }
+    image {
+      value = "media/media-play.svg"
+      action = MpdCmd "play"
+      style = If($MpdState="play","mpd_icon_red","mpd_icon")
+      trigger = "mpd"
+    }
+    image {
+      value = "media/media-pause.svg"
+      action = MpdCmd "pause"
+      style = If($MpdState="pause","mpd_icon_red","mpd_icon")
+      trigger = "mpd"
+    }
+    image {
+      value = "media/media-stop.svg"
+      action = MpdCmd "stop"
+      style = If(mpd("state")="stop","mpd_icon_red","mpd_icon")
+      trigger = "mpd"
+    }
+    image {
+      value = "media/media-fforward.svg"
+      action = MpdCmd "next"
+      style = "mpd_icon"
+    }
+  }
+}
+
+layout {
+  style = "module"
+  image {
+    css = "* { min-height: 24px; min-width: 24px; padding:5px; -ScaleImage-color: @theme_fg_color; }"
+    value = "icons/misc/music-player"
+    action = PopUp "XMpdWindow"
+    style = If($MpdState="","hidden","module")
+    #trigger = "mpd"
+  }
+}
+
+#CSS
+window#XMpdWindow {
+  background-color: rgba(0,0,0,0);
+}
+
+#hidden {
+  -GtkWidget-visible: false;
+}
+
+grid#XMpdPopup {
+  margin: 10px;
+  border-radius: 10px;
+  border-image: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: @borders;
+  background-color: alpha(@theme_bg_color, 0.8);
+  padding: 10px;
+}
+
+image#mpd_icon {
+  -GtkWidget-hexpand: false;
+  -GtkWidget-vexpand: false;
+  min-width: 16px;
+  min-height: 16px;
+  padding: 4px;
+  -ScaleImage-color: @theme_selected_bg_color;
+}
+
+image#mpd_icon_red {
+  -GtkWidget-hexpand: false;
+  -GtkWidget-vexpand: false;
+  min-width: 16px;
+  min-height: 16px;
+  padding: 4px;
+  color: red;
+}
+
+label#mpd_title,
+label#mpd_album,
+label#mpd_artist {
+  padding-left: 4px;
+  padding-right: 4px;
+  -GtkWidget-align: 0.5;
+  color: @theme_text_color;
+  -GtkWidget-halign: center;
+  -GtkWidget-max-width: 200;
+}
+
+#mpd_progress {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  -GtkWidget-halign: center;
+}
+
+#mpd_progress progress {
+  min-height: 8px;
+}
+
+#mpd_progress trough {
+  min-height: 8px;
+}
+
+image#cover {
+  background: @theme_selected_bg_color;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 0.6px solid @borders;
+  min-height: 200px;
+  min-width: 200px; 
+  -GtkWidget-halign: center;
+}

@@ -1,0 +1,75 @@
+# weather
+# Parse met.no weather forecast, adjust lat/lon to suit your location
+scanner {
+  Exec("wget -O - \"https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=-27.9479&lon=153.3982\"") {
+    WthrTemp= Json(".properties.timeseries.1.data.instant.details.air_temperature")
+    WthrCond= Json(".properties.timeseries.1.data.next_1_hours.summary.symbol_code")
+    WthrPressure= Json(".properties.timeseries.1.data.instant.details.air_pressure_at_sea_level")
+    WthrWindSpd= Json(".properties.timeseries.1.data.instant.details.wind_speed")
+    WthrWindDir= Json(".properties.timeseries.1.data.instant.details.wind_from_direction")
+    WthrHumidity= Json(".properties.timeseries.1.data.instant.details.relative_humidity")
+  }
+}
+
+# change to "C" for Celcius or "F" if you want Fahrenheit in main config
+
+Set Metric = If($WeatherTemp="", "C", $WeatherTemp)
+
+Define Temp = If($Metric = "C", WthrTemp.val, (WthrTemp.val * 9 / 5) + 32)
+
+# wind icon
+define svg = '<?xml  version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="12" width="12" viewBox="0 0 12 12">
+  <g transform="rotate('+Str(WthrWindDir.val,1)+' 6 6)">
+    <path style="fill:@theme_fg_color;" d="m 1 0 5 12 5 -12 -5 6 -5 -6 z"/>
+  </g>
+</svg>'
+
+layout {
+    grid {
+    style = "weather"
+      label {
+        css = "* { font: 18px Sans; font-weight: 600; -GtkWidget-align: 0.5; padding-left: 50px; }"
+        value = "Labrador QLD" # adjust to your location
+        loc(1,1,4,1)
+      }
+      label {
+        interval = 1800000
+        css = "* { font: 16px Sans; font-weight: 600; -GtkWidget-align: 0.5; padding-left:  50px; }"
+        value = Str(Temp,1)+"°"+$Metric+"\n"
+        loc(1,2,4,1)
+      }
+      image {
+        interval = 0
+        css = "* { -GtkWidget-hexpand: false; -GtkWidget-vexpand: true; min-height: 40px; min-width: 40px; padding-bottom: 15px; padding-left: 50px; }"
+        value = 'icons/weather/'+$WthrCond+'.svg'
+        loc(1,3,4,1)
+      }
+      label {
+        interval = 0
+        css = "* { font: 12px Sans; font-weight: 400; -GtkWidget-align: 0; padding-left: 10px;}"
+        value = "Pressure: "+Str(WthrPressure.val,1)+" hPa"
+        loc(1,4,4,1)
+      }
+      grid {
+        label {
+          interval = 0
+          css = "* { font: 12px Sans; font-weight: 400; -GtkWidget-align: 0; padding-left: 10px; }"
+          value = "Wind: "+Str((WthrWindSpd.val * 1.943844),1)+" knots "
+        }
+        image {
+          interval = 0
+          css = "* { min-height: 20px; min-width: 20px; padding: 10px; -GtkWidget-hexpand: true; }"
+          value = svg
+          tooltip = "Wind Direction: "+Str(WthrWindDir.val,1)+"°" 
+        }
+        loc(1,5,4,1)
+      }
+      label {
+      interval = 0
+      css = "* { font: 12px Sans; font-weight: 400; -GtkWidget-align: 0; padding-left: 10px; }"
+      value = "Humidity: "+Str(WthrHumidity.val,1)+" %"
+      loc(1,6,4,1)
+    }
+  }
+}
