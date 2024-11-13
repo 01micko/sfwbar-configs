@@ -27,7 +27,7 @@
 echo -n '#' > tz.md
 echo -e " Timezones\n\n" >> tz.md
 
-echo 'This table is a convenience table  so that you can copy/pase the
+echo 'This table is a convenience table  so that you can copy/paste the
 zone into your widget. It is generated from a simple `bash` script: 
 `find-tz`. You can see it [here](./find-tz).' >> tz.md
 

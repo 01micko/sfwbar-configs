@@ -1,7 +1,7 @@
 # Timezones
 
 
-This table is a convenience table  so that you can copy/pase the
+This table is a convenience table  so that you can copy/paste the
 zone into your widget. It is generated from a simple `bash` script: 
 `find-tz`. You can see it [here](./find-tz).
 
