@@ -22,7 +22,7 @@ A Roman Numeral clock with a fancy design. Found at the following
 
 Demonstates an embedded `png` clock face with Japanese Numerals.
 
-![Analog jp Clock](./analog-jp-png-embedded.svg) `CC0`
+![Analog jp Clock](./analog-jp-png-embeded.svg) `CC0`
 
 ### Oriental Clock
 
