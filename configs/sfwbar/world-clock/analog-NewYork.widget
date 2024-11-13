@@ -1,3 +1,9 @@
+Set City = "New_York"
+
+Exec("/bin/sh 'find /usr/share/zoneinfo/ type f -name ' + $City + ' | xargs tail -n1'") {
+  TZ = Grab()
+}
+
 Set nhr = Time("%H","EST5EDT,M3.2.0,M11.1.0")
 Set nmn = Time("%M","EST5EDT,M3.2.0,M11.1.0")
 Set nsc = Time("%S","EST5EDT,M3.2.0,M11.1.0")
@@ -26,7 +32,7 @@ layout {
     style = "analog"
     interval = 1000
     value = svg
-    tooltip = "New York\n" + $nhr + ':' + $nmn + ' ' + $nmeri
+    tooltip = "New York\n" + $nhr + ':' + $nmn + ' ' + $nmeri + ' " TZ: " ' + $TZ
   }
 }
 

@@ -48,6 +48,10 @@ See the [world clock](configs/sfwbar/world-clock/Readme-world-clock.md)
 
 See the [side bar](configs/sfwbar/sidebar/Readme-sidebar.md)
 
+#### Clock gallery
+
+A gallery of available clock designs. [Clock Gallery](svg-gallery/svg-gallery.md)
+
 ### Main config
 
 - `sfwbar.config`

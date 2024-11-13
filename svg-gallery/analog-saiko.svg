@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" version="1.1" viewBox="0 0 192 192">
+  <title>SVG Seiko imitation analog clock</title>
+  <defs>
+    <radialGradient id="RG1" cx="50%" cy="50%" fx="50%" fy="50%" r="50%">
+      <stop style="stop-color:rgb(70,70,70);stop-opacity:0.75;" offset="0%"/>
+      <stop style="stop-color:rgb(60,60,60);stop-opacity:1;" offset="100%"/>
+    </radialGradient>
+    <radialGradient id="RG2" cx="50%" cy="50%" fx="50%" fy="50%" r="50%">
+      <stop style="stop-color:rgb(196,157,90);stop-opacity:0.95;" offset="0%"/>
+      <stop style="stop-color:rgb(200,184,160);stop-opacity:1;" offset="100%"/>
+    </radialGradient>
+  </defs>
+	<style>
+    .face {
+      font: 16px serif;
+      fill: #C49D5A;
+    }	
+    .date {
+      font: 14px mono;
+      fill: #000;
+    }	
+	</style>
+  <circle style="stroke:#C49D5A; stroke-width:0; fill:url(#RG2);" cx="96" cy="96" r="95" />
+  <circle style="stroke:#838383; stroke-width:1; fill: url(#RG1);" cx="96" cy="96" r="91" />
+  <text x="74" y="60" class="face">SAIKO</text>
+  
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 95 10 0 20 -3 0 0 -20 z m 5 0 0 20 -3 0 0 -20 z" />
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 98 10 0 20 -4 0 0 -20 z" transform="rotate(30 96 96)" />
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 98 10 0 20 -4 0 0 -20 z" transform="rotate(60 96 96)" />
+  <path style="stroke:#C49D5A; stroke-width:0.5; fill: #eeeeee;" d="m 104 10 0 20 -16 0 0 -20 z" transform="rotate(90 96 96)" />
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 98 10 0 20 -4 0 0 -20 z" transform="rotate(120 96 96)" />
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 98 10 0 20 -4 0 0 -20 z" transform="rotate(150 96 96)" />
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 98 10 0 20 -4 0 0 -20 z" transform="rotate(180 96 96)" />
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 98 10 0 20 -4 0 0 -20 z" transform="rotate(210 96 96)" />
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 98 10 0 20 -4 0 0 -20 z" transform="rotate(240 96 96)" />
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 98 10 0 20 -4 0 0 -20 z" transform="rotate(270 96 96)" />
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 98 10 0 20 -4 0 0 -20 z" transform="rotate(300 96 96)" />
+  <path style="stroke:#C49D5A; stroke-width:0.2; fill: url(#RG2);" d="m 98 10 0 20 -4 0 0 -20 z" transform="rotate(330 96 96)" />
+  <text x="165" y="100" class="date">12</text>
+
+  <path style="fill:url(#RG2); stroke-width:0;" d="m 92 108 1 -70 6 0 1 70 z" transform="rotate(90 96 96)"/>
+  <path style="fill:url(#RG2); stroke-width:0;" d="m 92 108 1 -94 6 0 1 94 z" transform="rotate(12 96 96)"/>
+  <path style="stroke: #C49D5A; stroke-width:1.5;" d="m 96 120 0 -98" transform="rotate(240 96 96)"/>
+  <circle style="stroke:none; fill: url(#RG2);" cx="96" cy="96" r="6" />
+  <circle style="stroke:none; fill: url(#RG1);" cx="96" cy="96" r="1" />
+</svg>
