@@ -1,4 +1,4 @@
-# SVG GAllery
+# SVG Gallery
 
 Here is a preview of all the available clocks for the `sfwbar`	widgets
 in this repository.
@@ -20,7 +20,7 @@ A Roman Numeral clock with a fancy design. Found at the following
 
 ### JP Clock
 
-Demonstates an embedded `png` clock face with Japanese Numerals.
+Demonstrates an embedded `png` clock face with Japanese Numerals.
 
 ![Analog jp Clock](./analog-jp-png-embeded.svg) `CC0`
 
@@ -40,7 +40,7 @@ A plain and simple design.
 
 ### Saiko Clock
 
-A design based on Seiko watch. This is an interperation only and not a
+A design based on Seiko watch. This is an interpretation only and not a
 a blatant rip off.
 
 ![Saiko Clock](analog-saiko.svg) `CC0`
@@ -48,7 +48,7 @@ a blatant rip off.
 ### Swiss Rail Clock
 
 A design based off the Swiss Railways Clock. Again, this is an
-interperation only and not a blatant rip off.
+interpretation only and not a blatant rip off.
 
 ![Swiss Rail Clock](analog-swiss-rail.svg) `CC0`
 
