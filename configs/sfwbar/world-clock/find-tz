@@ -1,0 +1,43 @@
+#!/bin/bash
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#  
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#  MA 02110-1301, USA.
+#  
+
+# Copyright 2024 Mick Amadio <01micko@gmail.com>
+# GPL-2.0
+
+# eg: 
+# /usr/share/zoneinfo/Africa/Blantyre
+# /usr/share/zoneinfo/America/Indiana/Tell_City
+
+[[ ! -d "/usr/share/zoneinfo" ]] && echo "no zone info!" && exit
+
+echo -n '#' > tz.md
+echo -e " Timezones\n\n" >> tz.md
+
+echo 'This table is a convenience table  so that you can copy/pase the
+zone into your widget. It is generated from a simple `bash` script: 
+`find-tz`. You can see it [here](./find-tz).' >> tz.md
+
+echo >> tz.md
+
+echo '| Place     | zones     ' >> tz.md
+echo '|-----------|-----------' >> tz.md
+
+while read -r line; do
+	PLACE=${line/\/usr\/share\/zoneinfo\//}
+	echo -n "| $PLACE | " >> tz.md
+	tail -n 1 $line >> tz.md
+done <<<$(find -L /usr/share/zoneinfo/*/ -name "*" -type f)
