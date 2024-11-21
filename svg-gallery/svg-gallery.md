@@ -64,3 +64,10 @@ past. This is his design. The source code is [here](https://github.com/puppylinu
 Just the `analog-zigbert.svg` with Roman numerals instead.
 
 ![Zigbert Roman](analog-zigbert-roman.svg) `GPL-2.0`
+
+### Steamboat Willie (Mickey Mouse)
+
+A `png` snapshot straight out of the cartoon movie, manipulated (mutilated?)
+in `GIMP` and embedded as `base64` into the `svg`. `Public Domain`
+
+![Steamboat Willie - Mickey Mouse](mickie.svg) `GPL-2.0`
