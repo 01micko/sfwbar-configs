@@ -68,6 +68,6 @@ Just the `analog-zigbert.svg` with Roman numerals instead.
 ### Steamboat Willie (Mickey Mouse)
 
 A `png` snapshot straight out of the cartoon movie, manipulated (mutilated?)
-in `GIMP` and embedded as `base64` into the `svg`. `Public Domain`
+in `GIMP` and embedded as `base64` into the `svg`.
 
-![Steamboat Willie - Mickey Mouse](mickie.svg) `GPL-2.0`
+![Steamboat Willie - Mickey Mouse](mickie.svg) `Public Domain`
